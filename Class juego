@@ -1,0 +1,15 @@
+#include<iostream>
+#include <SDL.h>
+#include <SDL_surface.h>
+#include "Juego.h"
+
+using namespace std;
+
+
+int main(int argc, char* argv[])
+{
+	Juego ELEMENTALS;
+	ELEMENTALS.run();
+	ELEMENTALS.get_error();
+	return EXIT_SUCCESS;
+}
