@@ -1,0 +1,58 @@
+#include <SDL.h>
+const int WIDTH = 1280, HEIGHT = 720;
+using namespace std;
+
+class Juego
+{
+	public:
+		SDL_Surface* fondo;
+		SDL_Window* window;
+		SDL_Surface* window_surface;
+		SDL_Event windowEvent;
+
+		Juego();
+		void run();
+		void get_error();
+		~Juego();
+}; 
+Juego::Juego()
+{
+	fondo = SDL_LoadBMP("screen.bmp");
+	window = SDL_CreateWindow("ELEMENTALS", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, 0);
+	window_surface = SDL_GetWindowSurface(window);
+}
+void Juego::run()
+{
+	while (true)
+	{
+		if (SDL_PollEvent(&windowEvent))
+		{
+			if (SDL_QUIT == windowEvent.type)
+			{
+				break;
+			}
+		}
+		SDL_BlitSurface(fondo, NULL, window_surface, NULL);
+		SDL_UpdateWindowSurface(window);
+	}
+}
+void Juego::get_error()
+{
+
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+	{
+		cout << "sdl no puede inicar  SDL error" << SDL_GetError() << endl;
+	}
+
+	if (NULL == window)
+	{
+		cout << "Couldn't create window: " << SDL_GetError() << endl;
+
+	}
+}
+
+Juego::~Juego()
+{
+	SDL_DestroyWindow(window);
+	SDL_Quit();
+}
